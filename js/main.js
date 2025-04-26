@@ -11,11 +11,11 @@ const hienThiTable = () => {
 <tr>
     <td>${nhanVien.taiKhoan}</td>
     <td>${nhanVien.hoTen}</td>
-    <td>ngueynvanA@gmail.com</td>
-    <td>A12345</td>
-    <td>25/3/2025</td>
-    <td>10000</td>
-    <td>quanly</td>
+    <td>${nhanVien.email}</td>
+    <td>${nhanVien.matKhau}</td>
+    <td>${nhanVien.ngayLam}</td>
+    <td>${nhanVien.luongCoBan}</td>
+    <td>${nhanVien.chucVu}</td>
     <td>
         <div class="btn btn-primary">Xem</div>
         <div class="btn btn-info">Sua</div>
