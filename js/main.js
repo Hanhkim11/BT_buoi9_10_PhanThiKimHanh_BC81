@@ -29,6 +29,7 @@ class NhanVien {
     } else {
       this.tongLuong = this.luongCoBan;
     }
+    console.log(`Tính tổng lương cho ${this.taiKhoan}:`, this.tongLuong);
   }
 
   xepLoaiNhanVien() {
@@ -41,6 +42,7 @@ class NhanVien {
     } else {
       this.loaiNhanVien = "Trung bình";
     }
+    console.log(`Xếp loại cho ${this.taiKhoan}:`, this.loaiNhanVien);
   }
 }
 
@@ -50,59 +52,37 @@ const themNhanVien = () => {
   const nhanVien = layThongTinNhanVienTuForm();
   if (nhanVien) {
     danhSachNhanVien.push(nhanVien);
-    hienThiDanhSachNhanVien(danhSachNhanVien);
-    resetForm();
+    console.log("Danh sách nhân viên sau khi thêm:", danhSachNhanVien);
   }
 };
 
 const capNhatNhanVien = () => {
   const nhanVien = layThongTinNhanVienTuForm();
   if (nhanVien) {
-    danhSachNhanVien = danhSachNhanVien.map((nv) =>
-      nv.taiKhoan === nhanVien.taiKhoan ? nhanVien : nv
+    danhSachNhanVien = danhSachNhanVien.map((item) =>
+      item.taiKhoan === nhanVien.taiKhoan ? nhanVien : item
     );
-    hienThiDanhSachNhanVien(danhSachNhanVien);
-    resetForm();
+    console.log("Danh sách nhân viên sau khi cập nhật:", danhSachNhanVien);
   }
 };
 
 const xoaNhanVien = (taiKhoan) => {
-  danhSachNhanVien = danhSachNhanVien.filter((nv) => nv.taiKhoan !== taiKhoan);
-  hienThiDanhSachNhanVien(danhSachNhanVien);
+  danhSachNhanVien = danhSachNhanVien.filter(
+    (item) => item.taiKhoan !== taiKhoan
+  );
+  console.log(`Danh sách nhân viên sau khi xóa ${taiKhoan}:`, danhSachNhanVien);
 };
 
 const timKiemNhanVien = () => {
   const tuKhoa = document.getElementById("timLoai").value.trim().toLowerCase();
-  const ketQua = danhSachNhanVien.filter((nv) =>
-    nv.loaiNhanVien.toLowerCase().includes(tuKhoa)
+  const ketQua = danhSachNhanVien.filter((item) =>
+    item.loaiNhanVien.toLowerCase().includes(tuKhoa)
   );
-  hienThiDanhSachNhanVien(ketQua);
+  console.log(`Kết quả tìm kiếm loại "${tuKhoa}":`, ketQua);
 };
 
-const hienThiDanhSachNhanVien = (danhSach) => {
-  const tbody = document.getElementById("tableDanhSach");
-  let content = "";
-
-  danhSach.forEach((nv) => {
-    content += `
-            <tr>
-                <td>${nv.taiKhoan}</td>
-                <td>${nv.hoTen}</td>
-                <td>${nv.email}</td>
-                <td>${nv.ngayLam}</td>
-                <td>${nv.chucVu}</td>
-                <td>${nv.tongLuong.toLocaleString()}</td>
-                <td>${nv.loaiNhanVien}</td>
-                <td>
-                    <button class="btn btn-danger" onclick="xoaNhanVien('${
-                      nv.taiKhoan
-                    }')">Xóa</button>
-                </td>
-            </tr>
-        `;
-  });
-
-  tbody.innerHTML = content;
+const hienThiDanhSachNhanVien = () => {
+  console.log("Danh sách nhân viên hiện tại:", danhSachNhanVien);
 };
 
 const layThongTinNhanVienTuForm = () => {
@@ -127,6 +107,7 @@ const layThongTinNhanVienTuForm = () => {
       gioLam
     )
   ) {
+    console.log("Dữ liệu form không hợp lệ.");
     return null;
   }
 
@@ -142,11 +123,8 @@ const layThongTinNhanVienTuForm = () => {
   );
   nhanVien.tinhTongLuong();
   nhanVien.xepLoaiNhanVien();
+  console.log("Nhân viên mới lấy từ form:", nhanVien);
   return nhanVien;
-};
-
-const resetForm = () => {
-  document.getElementById("formNhanVien").reset();
 };
 
 const kiemTraThongTin = (
@@ -211,5 +189,6 @@ const kiemTraThongTin = (
     hopLe = false;
   }
 
+  console.log("Kết quả kiểm tra hợp lệ:", hopLe);
   return hopLe;
 };
